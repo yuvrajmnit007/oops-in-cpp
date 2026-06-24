@@ -33,19 +33,28 @@ class imageelement :public documents_element{
     }
 };
 class newline :public documents_element{
-    private :
-    string text;
     public:
     string render() override{
         return "\n";
     }
 };
 class tabspace :public documents_element{
-    private :
-    string text;
     public:
     string render() override{
         return "\t";
+    }
+};
+class font : public documents_element{
+    private:
+    string font_name;
+    int font_size;
+    public:
+    font(string font_name, int font_size){
+        this->font_name = font_name;
+        this->font_size = font_size;
+    }
+    string render() override{
+        return "<font name=\"" + font_name +"\" size=\"" + to_string(font_size) + "\">";
     }
 };
 class documents{
@@ -131,6 +140,7 @@ int main(){
     editor.addtxt(text2);
     editor.addnewline();
     editor.addtxt(text3);
+    cv.addElement(new font("Arial", 14));
     cout << editor.render_document() << endl;
     editor.save_document();
     return 0;
